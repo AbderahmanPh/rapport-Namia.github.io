@@ -1,0 +1,4 @@
+namia-app
+*.pyc
+.env
+.DS_Store
