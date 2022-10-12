@@ -28,12 +28,12 @@ ts_layout = go.Layout(
 )
 
 ## READ THE DATA
-code_by_day = pd.read_excel('./data/code_by_day.xlsx')
-produit_by_day = pd.read_excel('./data/produit_by_day.xlsx')
+code_by_day = pd.read_excel('./code_by_day.xlsx')
+produit_by_day = pd.read_excel('./produit_by_day.xlsx')
 
-reception = pd.read_excel('./data/produit_by_day.xlsx')
-mep = pd.read_excel('./data/mep_rapport.xlsx')
-rapprochement = pd.read_excel('./data/rapprochement_rapport.xlsx')
+reception = pd.read_excel('./produit_by_day.xlsx')
+mep = pd.read_excel('./mep_rapport.xlsx')
+rapprochement = pd.read_excel('./rapprochement_rapport.xlsx')
 
 #=========================================START APP===============================================
 # stylesheet with the .dbc class
