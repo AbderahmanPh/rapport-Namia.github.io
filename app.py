@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -8,8 +8,6 @@ import dash_bootstrap_components as dbc
 from dash import Dash, dcc, html, Input, Output
 from dash.dash_table import DataTable
 from dash.dash_table.Format import Format, Scheme, Group
-
-today = datetime.today().strftime('%Y-%m-%d')
 
 ## layout
 ts_layout = go.Layout(
@@ -27,6 +25,7 @@ ts_layout = go.Layout(
 
 ## READ THE DATA
 code_by_day = pd.read_excel('./data/code_by_day.xlsx')
+code_by_day.loc[:, 'CODE'] = code_by_day.loc[:, 'CODE'].astype('str')
 produit_by_day = pd.read_excel('./data/produit_by_day.xlsx')
 
 reception = pd.read_excel('./data/produit_by_day.xlsx')
@@ -163,20 +162,22 @@ app.layout = html.Div([
     Input('my-date-picker-range', 'end_date') )
 def clean_data(start, end):
     # some expensive data processing step
-
+    print(start)
+    print(end)
+    print(type(end))
     ## FILTER THE DATE
     produit_date = produit_by_day[produit_by_day['DATE'].between(start, end)]
     code_date = code_by_day[code_by_day['DATE'].between(start, end)]
 
     ## products sorted by quantity
-    pro_quantity = produit_date.groupby('PRODUIT')[['QUANTITE']].sum().sort_values('QUANTITE', ascending=False).reset_index()
+    pro_quantity = produit_date.groupby('PRODUIT')[['QUANTITE']].sum(numeric_only=True).sort_values('QUANTITE', ascending=False).reset_index()
     pro_quantity['PERCENTAGE'] = pro_quantity['QUANTITE'].map(lambda x: round(x*100/pro_quantity['QUANTITE'].sum(),2))
     ## STANDART SORT (PRODUIT)
     custom_dict = {'T03':0, 'T04':1, 'T05':2, "T06":3, "T07":4, "T08":5, "PR1":6, "PR2":7, "PR3":8, "PR":9}
     pro_quantity = pro_quantity.sort_values(by=['PRODUIT'], key=lambda x: x.map(custom_dict))
 
     ## Percentage for Code
-    code_perct = code_date.groupby('CODE')[['QUANTITE']].sum().sort_values('QUANTITE', ascending=False).reset_index()
+    code_perct = code_date.groupby('CODE')[['QUANTITE']].sum(numeric_only=True).sort_values('QUANTITE', ascending=False).reset_index()
     code_perct['PERCENTAGE'] = code_perct['QUANTITE'].map(lambda x: round(x*100/code_perct['QUANTITE'].sum(),2))
 
     ## -------------------- tableau TAB ---------------------------------------------------------------
@@ -186,7 +187,7 @@ def clean_data(start, end):
     ## ***********************************************************************************************
     ## select date and group by produit
     rec_dff = reception[reception['DATE'].between(start, end)]
-    rec_dff = rec_dff.groupby('PRODUIT').sum().reset_index()
+    rec_dff = rec_dff.groupby('PRODUIT').sum(numeric_only=True).reset_index()
     rec_dff.rename(columns = {'QUANTITE': 'RECEPTION'}, inplace=True)
     rec_dff = rec_dff.reindex([4,5,6,7,8,1,2,3])
     
@@ -225,8 +226,8 @@ def clean_data(start, end):
 
 ## =========================================START Produit Callback============================================
 @app.callback(
-    Output('data-table1', 'children'),
     Output('barh_produit', 'figure'),
+    Output('data-table1', 'children'),
     Output('produit_graph', 'figure'),
     Input('tabs-example-graph', 'value'),
     Input('store-produit', 'data'),
@@ -248,7 +249,6 @@ def update_produit(tab, cleaned_data, produit_date):
                                             ]
                                             
         table_produit = DataTable(columns = cols,
-                        id='datatable-interactivity',
                           data = dff.to_dict('records'),
                           style_data_conditional=([
                             {
@@ -298,7 +298,7 @@ def update_produit(tab, cleaned_data, produit_date):
         fig_produit = fig_produit.update_layout(title={'text': '<b>Produit par Jour<b>', 'y':0.95, 'x':0.5})
 
     
-        return  table_produit, barh_produit , fig_produit
+        return  barh_produit, table_produit, fig_produit
     
     else:
         return dash.no_update, dash.no_update, dash.no_update
@@ -308,8 +308,8 @@ def update_produit(tab, cleaned_data, produit_date):
     
 ## ====================================START Code Callback==================================================
 @app.callback(
-    Output('data-table2', 'children'),
     Output('barh_code', 'figure'),
+    Output('data-table2', 'children'),
     Output('code_graph', 'figure'),
     Input('tabs-example-graph', 'value'),
     Input('store-code', 'data'),
@@ -320,7 +320,11 @@ def update_code(tab, cleaned_data, code_date):
     if tab == 'tab-2-example-graph':
         
         dff = pd.read_json(cleaned_data, orient='split')
+        dff.loc[:, 'CODE'] = dff.loc[:, 'CODE'].astype('str')
+
         code_date_df = pd.read_json(code_date, orient='split')
+        code_date_df.loc[:, 'DATE'] = code_date_df.loc[:, 'DATE'].astype('str')
+        code_date_df.loc[:, 'CODE'] = code_date_df.loc[:, 'CODE'].astype('str')
 
         ## TABLE 2
         formatted = Format()
@@ -383,7 +387,7 @@ def update_code(tab, cleaned_data, code_date):
         fig_code = fig_code.update_layout(ts_layout)
         fig_code = fig_code.update_layout(title={'text': '<b>Code par Jour<b>', 'y':0.95, 'x':0.5 })
 
-        return table_code, barh_code ,fig_code
+        return barh_code, table_code, fig_code
     else:
         return dash.no_update, dash.no_update, dash.no_update
 ## ===================================== END code Callback ================================================
@@ -457,4 +461,4 @@ def tableau(tab, final_data, moyenne_data):
 # =======================================================================================================
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(port=9131)
