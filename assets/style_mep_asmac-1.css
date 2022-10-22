@@ -1,0 +1,46 @@
+
+#btn_csv{
+  width: 100px;
+  margin-left: 54px;
+}
+
+#dropdown_download{
+  font-size: 15px;
+  width: 17.2em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+.show-hide {
+  position: relative;
+  width: 140px;
+  height: 28px;
+}
+
+.show-hide::before {
+  background: inherit;
+  content: "Select colonnes";
+   position: absolute; 
+   left: 5px;
+  right: 5px; 
+}
+
+*/
+

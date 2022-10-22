@@ -1,0 +1,61 @@
+
+body{
+  width: 98vw;
+}
+
+h2 {
+  margin-top: 5px;
+  color: blue;
+  text-align: center;
+  /* background-color: ; */
+}
+button{
+  border-radius: 5px;
+  background-color: powderblue;
+  transition: background-color 0.5s; 
+  font-size: 14px; 
+}
+
+button:hover{
+  color:blue;
+  background-color:#e6fafa;
+  
+}
+button:active{
+  box-shadow: 2px 2px 5px #fc894d;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+.show-hide {
+  position: relative;
+  width: 140px;
+  height: 28px;
+}
+
+.show-hide::before {
+  background: inherit;
+  content: "Select colonnes";
+   position: absolute; 
+   left: 5px;
+  right: 5px; 
+}
+
+*/
+
