@@ -51,9 +51,9 @@ layout = html.Div([
           style={'font-size': '15px', 'width': '240px'}
         ),
       dcc.Graph(id="bar-graph", config={'displayModeBar': False})
-      ], label="Bar Chart"),
+      ], label="Production-Bateau"),
 
-    dcc.Tab([dcc.Graph(id="line-graph", config={'displayModeBar': False})], label="Line Chart"),
+    dcc.Tab([dcc.Graph(id="line-graph", config={'displayModeBar': False})], label="Espece-Date"),
 
     dcc.Tab([
       html.Br(),

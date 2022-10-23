@@ -47,17 +47,6 @@ dbc_css = "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates/dbc.mi
 # server = app.server
 # app.title = "Rapport"
 
-# navbar = dbc.NavbarSimple(
-#     [
-#         dbc.Button("NAMIA", href="/", color="secondary", className="me-1"),
-#         dbc.Button("ASMAC", href="/stocks/AAPL", color="secondary"),
-#     ],
-#     brand="Rapport NAMIA",
-#     color="primary",
-#     dark=True,
-#     className="mb-2",
-# )
-
 layout = html.Div([
     # html.H1("Rapport de NAMIA", style={"textAlign":"center", 'backgroundColor': '#45E3E9'}),
     # html.H5('Date', className='bg-light col-sm-1 row justify-content-md-center'),
