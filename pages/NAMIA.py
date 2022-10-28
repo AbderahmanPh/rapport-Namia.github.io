@@ -39,17 +39,9 @@ rapprochement = pd.read_excel('./assets/namia/rapprochement_rapport.xlsx')
 # stylesheet with the .dbc class
 dbc_css = "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates/dbc.min.css"
 
-# app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc_css], 
-#     meta_tags=[
-#         {"name": "viewport", "content": "width=device-width, initial-scale=1"},
-#         ])
-
-# server = app.server
-# app.title = "Rapport"
 
 layout = html.Div([
-    # html.H1("Rapport de NAMIA", style={"textAlign":"center", 'backgroundColor': '#45E3E9'}),
-    # html.H5('Date', className='bg-light col-sm-1 row justify-content-md-center'),
+
     dcc.DatePickerRange(
         id='my-date-picker-range',
         display_format='DD/MM/YYYY',
@@ -92,7 +84,7 @@ layout = html.Div([
         dcc.Graph(id='produit_graph', style={'height': '100vh'}),
         
         html.A([html.H6('Feedback')], title ='email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
-                      style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'})
+                      style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'}),
        ]) ,
     
     ## $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ CODE TAB $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 
@@ -122,7 +114,7 @@ layout = html.Div([
         
         dcc.Graph(id='code_graph'),
         html.A([html.H6('Feedback')], title ='email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
-                style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'})
+                style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'}),
        ]),
     
         ## $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Tableau TAB $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$

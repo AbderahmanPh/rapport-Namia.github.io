@@ -9,6 +9,17 @@ app.title = "Rapport"
 app.index_string = """<!DOCTYPE html>
     <html>
         <head>
+            <style>
+                .hidden {
+                opacity: 0;
+                }
+
+                .visible {
+                opacity: 1;
+                transition: opacity 2s ease-out;
+                }
+            </style>
+            
             <!-- Google tag (gtag.js) -->
             <script async src="https://www.googletagmanager.com/gtag/js?id=G-NK3SH0SRM6"></script>
             <script>
@@ -22,14 +33,21 @@ app.index_string = """<!DOCTYPE html>
             <title>{%title%}</title>
             {%favicon%}
             {%css%}
+         
         </head>
         <body>
+            <script>
+                document.body.className = 'hidden';
+            </script>
             {%app_entry%}
             <footer>
                 {%config%}
                 {%scripts%}
                 {%renderer%}
             </footer>
+            <script>
+                document.body.className = 'visible';
+            </script>
         </body>
 </html> """
 

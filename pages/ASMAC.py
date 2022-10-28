@@ -61,7 +61,7 @@ layout = html.Div([
     dcc.Tab([
       html.Br(),
       html.Div([
-      html.Div(id='table-id', style={'margin-left': '7px', 'margin-top': 30, 'height': '83vh'})
+      html.Div(id='table-id', style={'margin-left': '7px', 'margin-top': 30, 'height': '86vh'})
       ], style={ 'width':'90%'} ),
       html.Br(),
 
