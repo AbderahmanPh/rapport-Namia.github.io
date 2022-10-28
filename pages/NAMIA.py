@@ -64,15 +64,16 @@ layout = html.Div([
              children=[
     dcc.Tab(label='Produit', value='tab-1-example-graph',
            children=[
-            dcc.Loading([ 
                # dcc.Store stores the produit store
                dcc.Store(id='store-produit'),
                dcc.Store(id='produit-date-data'),
                html.Div([ 
                html.Div([
+        dcc.Loading([
         dcc.Graph(id='barh_produit', style={'width': '120vh', 'height': '90vh',
                                        'display': 'inline-block'
                                        }),
+                    ], color="#119DFF", fullscreen=False, type='dot'),
 
         ], style={'width': '60%', 'display': 'inline-block'
                }),
@@ -86,22 +87,23 @@ layout = html.Div([
         
         html.A([html.H6('Feedback')], title ='email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
                       style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'}),
-       ], color="#119DFF", fullscreen=False, type='dot') 
+        
        ]) ,
     
     ## $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ CODE TAB $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 
 
     dcc.Tab(label='Code', value='tab-2-example-graph',
            children=[
-            dcc.Loading([
                # dcc.Store stores the code store
                dcc.Store(id='store-code'),
                dcc.Store(id='code-date-data'),
                html.Div([ 
                html.Div([
+        dcc.Loading([
         dcc.Graph(id='barh_code', style={'width': '120vh', 'height': '90vh',
                                        'display': 'inline-block',
-                                        "maxHeight": "600px", "overflowY": "scroll", "overflowX": 'hidden'} ),
+                                        "maxHeight": "600px", "overflowY": "scroll", "overflowX": 'hidden'} )
+                    ], color="#119DFF", fullscreen=False, type='dot'),
 
         ], style={'width': '60%', 'display': 'inline-block'} ),
 
@@ -118,7 +120,6 @@ layout = html.Div([
         dcc.Graph(id='code_graph'),
         html.A([html.H6('Feedback')], title ='email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
                 style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'}),
-        ], color="#119DFF", fullscreen=False, type='dot')
        ]),
     
         ## $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Tableau TAB $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
