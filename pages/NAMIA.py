@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 
 import dash 
 import dash_bootstrap_components as dbc
-from dash import Dash, dcc, html, Input, Output, register_page, callback
+from dash import Dash, dcc, html, Input, Output, register_page, callback, State
 from dash.dash_table import DataTable
 from dash.dash_table.Format import Format, Scheme, Group
 
@@ -84,10 +84,9 @@ layout = html.Div([
            ],  style={'display': 'flex', 'height': '100vh'} ),
                
         dcc.Graph(id='produit_graph', style={'height': '100vh'}),
-        
-        html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
-                      style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'}),
-        
+
+        html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-namia (tab: Produit)', target='_blank',
+                className='feedback-btn'),      
        ]) ,
     
     ## $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ CODE TAB $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 
@@ -118,8 +117,8 @@ layout = html.Div([
         ], style={'display': 'flex' ,'height': '100vh'} ),
         
         dcc.Graph(id='code_graph'),
-        html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
-                style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'}),
+        html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-namia (tab: Code)', target='_blank',
+                className='feedback-btn'),
        ]),
     
         ## $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Tableau TAB $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -144,8 +143,8 @@ layout = html.Div([
            ],   style={ 'height': '70vh', 'width':'90%'} 
            ),
         
-        html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
-                style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'})
+        html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-namia (tab: MEP-Reception)', target='_blank',
+                className='feedback-btn'),
        ])
     ]),
 
@@ -462,8 +461,6 @@ def tableau(tab, final_data, moyenne_data):
         return dash.no_update, dash.no_update
     
     ## ======================== END TABLEAU TAB Callback =====================================================
-    
+
 # =======================================================================================================
 
-# if __name__ == '__main__':
-#     app.run_server(port=9131)

@@ -15,7 +15,6 @@ df = pd.read_excel("assets/asmac/journal_mep.xlsx")
 layout = html.Div([
   
       html.H2('ASMAC'),
-    # html.Br(),
     dbc.Row(
             [
         dbc.Col([ 
@@ -44,7 +43,10 @@ layout = html.Div([
     html.Br(),
 
     dcc.Download(id="download"),
+
+    ## ====================================== Tabs =================================================
     dcc.Tabs([
+      ##------------------------------------Production-Bateau ------------------------------------
       dcc.Tab([
       dcc.Loading([
         dcc.Dropdown(
@@ -55,15 +57,26 @@ layout = html.Div([
           style={'font-size': '15px', 'width': '240px'}
         ),
       dcc.Graph(id="bar-graph", config={'displayModeBar': False}),
-        ], color="#119DFF", fullscreen=False, type='dot')
+        ], color="#119DFF", fullscreen=False, type='dot'),
+
+      html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-asmac (tab: Production-Bateau)', target='_blank',
+                className='feedback-btn'),
+
       ], label="Production-Bateau"),
 
+
+    ##------------------------------------- Tab Espece-Date -----------------------------------------
     dcc.Tab([
       dcc.Loading([
         dcc.Graph(id="line-graph", config={'displayModeBar': False}), 
       ], color="#119DFF", fullscreen=False, type='dot'),
+
+        html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-asmac (Tab: Espece-Date)', target='_blank',
+                className='feedback-btn'),
+
       ], label="Espece-Date"),
 
+    ## -------------------------------------------Tab Tableau -----------------------------------------
     dcc.Tab([
       html.Br(),
       dcc.Loading([
@@ -71,8 +84,9 @@ layout = html.Div([
       html.Div(id='table-id', style={'margin-left': '7px', 'margin-top': 30, 'height': '86vh'})
       ], style={ 'width':'90%'} ),
       ], color="#119DFF", fullscreen=False, type='dot'),
-      html.Br(),
 
+      html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-asmac (Tab: Tableau)', target='_blank',
+                className='feedback-btn'),
     ], 
     label="Tableau"),
 
