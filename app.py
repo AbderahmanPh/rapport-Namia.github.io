@@ -16,7 +16,7 @@ app.index_string = """<!DOCTYPE html>
 
                 .visible {
                 opacity: 1;
-                transition: opacity 2s ease-out;
+                transition: opacity 3s ease-out;
                 }
             </style>
             
