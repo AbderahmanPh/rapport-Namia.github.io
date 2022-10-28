@@ -85,7 +85,7 @@ layout = html.Div([
                
         dcc.Graph(id='produit_graph', style={'height': '100vh'}),
         
-        html.A([html.H6('Feedback')], title ='email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
+        html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
                       style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'}),
         
        ]) ,
@@ -118,7 +118,7 @@ layout = html.Div([
         ], style={'display': 'flex' ,'height': '100vh'} ),
         
         dcc.Graph(id='code_graph'),
-        html.A([html.H6('Feedback')], title ='email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
+        html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
                 style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'}),
        ]),
     
@@ -136,13 +136,15 @@ layout = html.Div([
 
         
         html.Div([ 
+        dcc.Loading([
         html.H4('Rapprochement-MEP-Reception', style={'margin-left': '25px'}, className='text-light bg-secondary'),
         html.Div(id='data-table3', style={'margin-left': '55px', 'margin-top': 40
-                                          })
+                                          }),
+            ], color="#119DFF", fullscreen=False, type='dot')
            ],   style={ 'height': '70vh', 'width':'90%'} 
            ),
         
-        html.A([html.H6('Feedback')], title ='email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
+        html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
                 style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'})
        ])
     ]),

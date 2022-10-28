@@ -46,6 +46,7 @@ layout = html.Div([
     dcc.Download(id="download"),
     dcc.Tabs([
       dcc.Tab([
+      dcc.Loading([
         dcc.Dropdown(
           id = 'dropdown',
           value = 'Date',
@@ -53,16 +54,23 @@ layout = html.Div([
           clearable=False ,
           style={'font-size': '15px', 'width': '240px'}
         ),
-      dcc.Graph(id="bar-graph", config={'displayModeBar': False})
+      dcc.Graph(id="bar-graph", config={'displayModeBar': False}),
+        ], color="#119DFF", fullscreen=False, type='dot')
       ], label="Production-Bateau"),
 
-    dcc.Tab([dcc.Graph(id="line-graph", config={'displayModeBar': False})], label="Espece-Date"),
+    dcc.Tab([
+      dcc.Loading([
+        dcc.Graph(id="line-graph", config={'displayModeBar': False}), 
+      ], color="#119DFF", fullscreen=False, type='dot'),
+      ], label="Espece-Date"),
 
     dcc.Tab([
       html.Br(),
+      dcc.Loading([
       html.Div([
       html.Div(id='table-id', style={'margin-left': '7px', 'margin-top': 30, 'height': '86vh'})
       ], style={ 'width':'90%'} ),
+      ], color="#119DFF", fullscreen=False, type='dot'),
       html.Br(),
 
     ], 
