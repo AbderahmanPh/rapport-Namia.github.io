@@ -8,10 +8,13 @@ import plotly.express as px
 # app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 dash.register_page(__name__, path='/asmac', title='ASMAC Analysis', name='MEP asmac', order=1)
 
+
 df = pd.read_excel("assets/asmac/journal_mep.xlsx")
 
+
 layout = html.Div([
-    html.H2('ASMAC'),
+  
+      html.H2('ASMAC'),
     # html.Br(),
     dbc.Row(
             [

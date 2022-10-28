@@ -6,6 +6,34 @@ app = dash.Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.BOOTS
 server = app.server
 app.title = "Rapport"
 
+app.index_string = """<!DOCTYPE html>
+    <html>
+        <head>
+            <!-- Google tag (gtag.js) -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-NK3SH0SRM6"></script>
+            <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-NK3SH0SRM6');
+            </script>
+            {%metas%}
+            <title>{%title%}</title>
+            {%favicon%}
+            {%css%}
+        </head>
+        <body>
+            {%app_entry%}
+            <footer>
+                {%config%}
+                {%scripts%}
+                {%renderer%}
+            </footer>
+        </body>
+</html> """
+
+
 navbar = dbc.NavbarSimple(
     [
         dbc.Button("NAMIA", href="/", color="secondary", className="me-1"),
