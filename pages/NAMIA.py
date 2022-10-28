@@ -92,7 +92,7 @@ layout = html.Div([
         dcc.Graph(id='produit_graph', style={'height': '100vh'}),
         
         html.A([html.H6('Feedback')], title ='email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
-                      style={'position':'absolute', 'right':'10px'})
+                      style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'})
        ]) ,
     
     ## $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ CODE TAB $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 
@@ -122,7 +122,7 @@ layout = html.Div([
         
         dcc.Graph(id='code_graph'),
         html.A([html.H6('Feedback')], title ='email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
-                style={'position':'absolute', 'right':'10px'})
+                style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'})
        ]),
     
         ## $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Tableau TAB $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -146,7 +146,7 @@ layout = html.Div([
            ),
         
         html.A([html.H6('Feedback')], title ='email_me', href='mailto:abderahmanah605@gmail.com', target='_blank',
-                style={'position':'absolute', 'right':'10px'})
+                style={'position':'absolute', 'right':'10px', 'text-decoration': 'none'})
        ])
     ]),
 

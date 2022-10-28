@@ -61,7 +61,7 @@ layout = html.Div([
     dcc.Tab([
       html.Br(),
       html.Div([
-      html.Div(id='table-id', style={'margin-left': '7px', 'margin-top': 30, 'height': '90vh'})
+      html.Div(id='table-id', style={'margin-left': '7px', 'margin-top': 30, 'height': '83vh'})
       ], style={ 'width':'90%'} ),
       html.Br(),
 
@@ -159,7 +159,7 @@ def mep_graph(value):
                           ]),
 
     style_header={'whiteSpace': 'normal', 'fontWeight': 'bold'},
-    style_table={'maxHeight':'95vh','height':'95vh'},
+    # style_table={'maxHeight':'80vh','height':'80vh'},
     filter_action="native",
     sort_action="native",
   )
@@ -201,7 +201,7 @@ def mep_graph(value):
 
   line_fig = px.line(df_vs, x="Date", y="Quantite", color=f"Espece", title="MEP 2eme Trimestre", height=700, markers=True)
   line_fig.update_layout(title= {'text': '<b>Journal MEP<b>', 'y':0.95, 'x':0.5},
-                        xaxis_title="Asmac",
+                        xaxis_title="Date",
                         yaxis_title="Quantite", font=dict(
                               family="Ubuntu",
                               size=15,
