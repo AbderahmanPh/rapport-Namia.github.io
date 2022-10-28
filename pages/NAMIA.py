@@ -259,6 +259,10 @@ def update_produit(tab, cleaned_data, produit_date):
                                 'backgroundColor': '#6bf249'
                             } for i in dff['POURCENTAGE'].nlargest(3)
                           ]),
+                          style_cell={
+                                # all three widths are needed to fix columns' width
+                                'minWidth': '65px', 'width': '65px', 'maxWidth': '65px',
+                                'whiteSpace': 'normal' },
                           style_header={'whiteSpace': 'normal', 'fontWeight': 'bold'},
                           fixed_rows={'headers': True},
                           style_table={ 'width': 440, },
