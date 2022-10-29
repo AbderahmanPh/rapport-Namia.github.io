@@ -85,7 +85,7 @@ layout = html.Div([
                
         dcc.Graph(id='produit_graph', style={'height': '100vh'}),
 
-        html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-namia (tab: Produit)', target='_blank',
+        html.A('Feedback', title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-namia (tab: Produit)', target='_blank',
                 className='feedback-btn'),      
        ]) ,
     
@@ -117,7 +117,7 @@ layout = html.Div([
         ], style={'display': 'flex' ,'height': '100vh'} ),
         
         dcc.Graph(id='code_graph'),
-        html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-namia (tab: Code)', target='_blank',
+        html.A('Feedback', title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-namia (tab: Code)', target='_blank',
                 className='feedback-btn'),
        ]),
     
@@ -143,7 +143,7 @@ layout = html.Div([
            ],   style={ 'height': '70vh', 'width':'90%'} 
            ),
         
-        html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-namia (tab: MEP-Reception)', target='_blank',
+        html.A('Feedback', title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-namia (tab: MEP-Reception)', target='_blank',
                 className='feedback-btn'),
        ])
     ]),

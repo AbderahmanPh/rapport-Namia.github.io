@@ -59,7 +59,7 @@ layout = html.Div([
       dcc.Graph(id="bar-graph", config={'displayModeBar': False}),
         ], color="#119DFF", fullscreen=False, type='dot'),
 
-      html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-asmac (tab: Production-Bateau)', target='_blank',
+      html.A('Feedback', title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-asmac (tab: Production-Bateau)', target='_blank',
                 className='feedback-btn'),
 
       ], label="Production-Bateau"),
@@ -71,7 +71,7 @@ layout = html.Div([
         dcc.Graph(id="line-graph", config={'displayModeBar': False}), 
       ], color="#119DFF", fullscreen=False, type='dot'),
 
-        html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-asmac (Tab: Espece-Date)', target='_blank',
+        html.A('Feedback', title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-asmac (Tab: Espece-Date)', target='_blank',
                 className='feedback-btn'),
 
       ], label="Espece-Date"),
@@ -85,7 +85,7 @@ layout = html.Div([
       ], style={ 'width':'90%'} ),
       ], color="#119DFF", fullscreen=False, type='dot'),
 
-      html.A([html.H6('Feedback')], title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-asmac (Tab: Tableau)', target='_blank',
+      html.A('Feedback', title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-asmac (Tab: Tableau)', target='_blank',
                 className='feedback-btn'),
     ], 
     label="Tableau"),
