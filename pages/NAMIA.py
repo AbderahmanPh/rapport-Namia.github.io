@@ -128,7 +128,6 @@ layout = html.Div([
                dcc.Store(id='store-tableau'),
                dcc.Store(id='store-moyenne'),
 
-        html.Br(),
         html.Br(),       
         html.Div(id='moyenne-data'),
         html.Br(),
@@ -169,14 +168,14 @@ def clean_data(start, end):
 
     ## products sorted by quantity
     pro_quantity = produit_date.groupby('PRODUIT')[['QUANTITE']].sum(numeric_only=True).sort_values('QUANTITE', ascending=False).reset_index()
-    pro_quantity['POURCENTAGE'] = pro_quantity['QUANTITE'].map(lambda x: round(x*100/pro_quantity['QUANTITE'].sum(),2))
+    pro_quantity['POURCENTAGE'] = pro_quantity['QUANTITE'].map( lambda x: round(x*100 / pro_quantity['QUANTITE'].sum(), 2) )
     ## STANDART SORT (PRODUIT)
     custom_dict = {'T03':0, 'T04':1, 'T05':2, "T06":3, "T07":4, "T08":5, "PR1":6, "PR2":7, "PR3":8, "PR":9}
     pro_quantity = pro_quantity.sort_values(by=['PRODUIT'], key=lambda x: x.map(custom_dict))
 
     ## POURCENTAGE for Code
     code_perct = code_date.groupby('CODE')[['QUANTITE']].sum(numeric_only=True).sort_values('QUANTITE', ascending=False).reset_index()
-    code_perct['POURCENTAGE'] = code_perct['QUANTITE'].map(lambda x: round(x*100/code_perct['QUANTITE'].sum(),2))
+    code_perct['POURCENTAGE'] = code_perct['QUANTITE'].map(lambda x: round(x*100/code_perct['QUANTITE'].sum(), 2) )
 
     ## -------------------- tableau TAB ---------------------------------------------------------------
     mep_dff = mep[mep['DATE'].astype('str').between(start,end)]
@@ -398,8 +397,8 @@ def update_code(tab, cleaned_data, code_date):
 
 ## ==========================START Tabeau TAB callback ===================================================
 @callback(
-    Output('data-table3', 'children'),
     Output('moyenne-data', 'children'),
+    Output('data-table3', 'children'),
     Input('tabs-example-graph', 'value'),
     Input('store-tableau', 'data'),
     Input('store-moyenne', 'data'),
@@ -410,7 +409,20 @@ def tableau(tab, final_data, moyenne_data):
         final_df = pd.read_json(final_data, orient='split')
         moyenne_df = pd.read_json(moyenne_data, orient='split')
 
-        ## TABLEAU
+        ## MOYENNE
+        # total
+        total = moyenne_df.loc['Total', moyenne_df.columns[1:].to_list()].sum()
+        # moyenne europe
+        moy_europe = round(moyenne_df.loc['Total', ['PR1', 'T03', 'T04', 'T05', 'T06']].sum()*100/total, 2).astype('str')+'%'
+        # moyenne japon
+        moy_japon = round(moyenne_df.loc['Total', ['PR2', 'PR3', 'T07']].sum()*100/total, 2).astype('str')+'%'
+ 
+        moyenne = [html.Ul([
+               html.Li(dcc.Markdown(f'Moyenne Japon: **{moy_japon}**')),
+               html.Li(dcc.Markdown(f'Moyenne Europe: **{moy_europe}**')),
+                ]) ]
+
+        ## TABLEAU ---------------------------------------
         formatted = Format()
         formatted = formatted.scheme(Scheme.fixed).precision(2).group(Group.yes).group_delimiter(' ')
 
@@ -435,28 +447,19 @@ def tableau(tab, final_data, moyenne_data):
                                 'fontWeight': 'bold'
                             }
                           ]),
-
+                          
+                          style_cell={
+                                # all three widths are needed to fix columns' width
+                                'minWidth': '55px', 'width': '55px', 'maxWidth': '55px',
+                                'whiteSpace': 'normal' },
                           style_header={'whiteSpace': 'normal', 'fontWeight': 'bold'},
                           fixed_rows={'headers': True},
                           sort_action='native',
                           filter_action='native',
                           export_format='xlsx',
                           ),
-
-        ## moyenne
-        # total
-        total = moyenne_df.loc['Total', moyenne_df.columns[1:].to_list()].sum()
-        # moyenne europe
-        moy_europe = round(moyenne_df.loc['Total', ['PR1', 'T03', 'T04', 'T05', 'T06']].sum()*100/total, 2).astype('str')+'%'
-        # moyenne japon
-        moy_japon = round(moyenne_df.loc['Total', ['PR2', 'PR3', 'T07']].sum()*100/total, 2).astype('str')+'%'
-
-        moyenne = [html.Ul([
-               html.Li(dcc.Markdown(f'Moyenne Japon: **{moy_japon}**')),
-               html.Li(dcc.Markdown(f'Moyenne Europe: **{moy_europe}**')),
-                ]) ]
-            
-        return tableau, moyenne
+    
+        return moyenne, tableau
     else:
         return dash.no_update, dash.no_update
     

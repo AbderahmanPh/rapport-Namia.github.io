@@ -2,7 +2,8 @@ import dash
 import dash_bootstrap_components as dbc
 
 
-app = dash.Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = dash.Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.BOOTSTRAP],)
+
 server = app.server
 app.title = "Rapport"
 
@@ -16,7 +17,7 @@ app.index_string = """<!DOCTYPE html>
 
                 .visible {
                 opacity: 1;
-                transition: opacity 3s ease-out;
+                transition: opacity 2s ease-out;
                 }
             </style>
             
