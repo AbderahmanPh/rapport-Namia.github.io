@@ -9,8 +9,10 @@ from dash import Dash, dcc, html, Input, Output, register_page, callback, State
 from dash.dash_table import DataTable
 from dash.dash_table.Format import Format, Scheme, Group
 
-register_page(__name__, path="/", name='Rapport Namia', title='Rapport', order=0, description='Namia Rapport Analysis')
-
+register_page(__name__, path="/", name='Rapport Namia', title='Rapport', order=0, description='Namia Rapport Analysis',
+                meta_tags=[{'name': 'viewport',
+                            'content': 'width=device-width, initial-scale=1.0, maximum-scale=1.2, minimum-scale=0.5,'}]
+)
 
 ## layout
 ts_layout = go.Layout(
@@ -40,16 +42,21 @@ rapprochement = pd.read_excel('./assets/namia/rapprochement_rapport.xlsx')
 dbc_css = "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates/dbc.min.css"
 
 
+today = date.today()
+year = int(str(today).split("-")[0])
+month = int(str(today).split("-")[1])
+day = int(str(today).split("-")[2])
+
 layout = html.Div([
 
     dcc.DatePickerRange(
         id='my-date-picker-range',
         display_format='DD/MM/YYYY',
-        min_date_allowed=date(2022, 7, 2),
-        max_date_allowed=date(2022,9, 30),
-        initial_visible_month= date(2022, 9, 30) ,
-        start_date = date(2022, 7, 2),
-        end_date=date(2022,9, 30),
+        # min_date_allowed=date(2022, 7, 2),
+        # max_date_allowed=date(2022,9, 30),
+        initial_visible_month= date(year, month, day),
+        start_date = date(2022, 12, 8),
+        end_date=date(year, month, day),
         start_date_placeholder_text='du',
         day_size=30,
         first_day_of_week=1,
@@ -67,23 +74,25 @@ layout = html.Div([
                # dcc.Store stores the produit store
                dcc.Store(id='store-produit'),
                dcc.Store(id='produit-date-data'),
-               html.Div([ 
-               html.Div([
         dcc.Loading([
-        dcc.Graph(id='barh_produit', style={'width': '120vh', 'height': '90vh',
+        dbc.Row([ 
+            dbc.Col([
+        dcc.Graph(id='barh_produit', style={#'width': '120vh', 'height': '90vh',
                                        'display': 'inline-block'
                                        }),
-                    ], color="#119DFF", fullscreen=False, type='dot'),
 
-        ], style={'width': '60%', 'display': 'inline-block'
-               }),
-
+        ], xs=10, sm=12, md=10, lg=7, xl=7 ),
+        
+        dbc.Col([
         # Table container
-        html.Div(id='data-table1', style={'display': 'inline-block', 'width': '80vh', #'height': '110vh',
-                                          'margin-left': '25px', 'margin-top': 100})
-           ],  style={'display': 'flex', 'height': '100vh'} ),
-               
+        html.Div(id='data-table1', style={'display': 'inline-block',# 'width': '80vh', #'height': '110vh',
+                                           'margin-left': '60px','margin-top': 50})
+           ], xs=10, sm=12, md=10, lg=6, xl=3) ,
+        ]),
+
         dcc.Graph(id='produit_graph', style={'height': '100vh'}),
+            
+        ], color="#119DFF", fullscreen=False, type='dot'),
 
         html.A('Feedback', title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-namia (tab: Produit)', target='_blank',
                 className='feedback-btn'),      
@@ -96,27 +105,29 @@ layout = html.Div([
                # dcc.Store stores the code store
                dcc.Store(id='store-code'),
                dcc.Store(id='code-date-data'),
-               html.Div([ 
-               html.Div([
         dcc.Loading([
+        dbc.Row([
+            dbc.Col([
+
         dcc.Graph(id='barh_code', style={'width': '120vh', 'height': '90vh',
                                        'display': 'inline-block',
                                         "maxHeight": "600px", "overflowY": "scroll", "overflowX": 'hidden'} )
-                    ], color="#119DFF", fullscreen=False, type='dot'),
+            ], xs=10, sm=11, md=12, lg=7, xl=7 ),
 
-        ], style={'width': '60%', 'display': 'inline-block'} ),
-
+        dbc.Col([
         # Table container
-        html.Div([
         html.Div(id='data-table2', style={'display': 'inline-block', 'width': '60vh', "overflowX": 'hidden',
                                             # 'height': '100vh',
                                             #"overflowY": "hidden",
-                                           'margin-left': '75px', 'margin-top': 100
+                                           'margin-left': '75px', 'margin-top': 70
                                            })
-                                ], style={'width': '20%'} ),
-        ], style={'display': 'flex' ,'height': '100vh'} ),
+        ] , xs=10, sm=11, md=12, lg=6, xl=3) ,
+        ]),
         
         dcc.Graph(id='code_graph'),
+                    
+        ], color="#119DFF", fullscreen=False, type='dot'),
+        
         html.A('Feedback', title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-namia (tab: Code)', target='_blank',
                 className='feedback-btn'),
        ]),
@@ -128,20 +139,21 @@ layout = html.Div([
                dcc.Store(id='store-tableau'),
                dcc.Store(id='store-moyenne'),
 
+        dcc.Loading([
         html.Br(),       
         html.Div(id='moyenne-data'),
         html.Br(),
 
         
         html.Div([ 
-        dcc.Loading([
         html.H4('Rapprochement-MEP-Reception', style={'margin-left': '25px'}, className='text-light bg-secondary'),
         html.Div(id='data-table3', style={'margin-left': '55px', 'margin-top': 40
                                           }),
-            ], color="#119DFF", fullscreen=False, type='dot')
            ],   style={ 'height': '70vh', 'width':'90%'} 
            ),
         
+        ], color="#119DFF", fullscreen=False, type='dot'),
+
         html.A('Feedback', title ='Email_me', href='mailto:abderahmanah605@gmail.com?subject=Feedback from rapport-namia (tab: MEP-Reception)', target='_blank',
                 className='feedback-btn'),
        ])

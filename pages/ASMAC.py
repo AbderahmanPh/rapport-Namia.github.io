@@ -6,7 +6,7 @@ import plotly.express as px
 
 
 # app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-dash.register_page(__name__, path='/asmac', title='ASMAC Analysis', name='MEP asmac', order=1)
+dash.register_page(__name__, path='/asmac', title='ASMAC Analysis', name='MEP asmac', order=1 )
 
 
 df = pd.read_excel("assets/asmac/journal_mep.xlsx")
@@ -26,7 +26,7 @@ layout = html.Div([
         ],
         id="dropdown_download",
         placeholder="Choisissez fichier à télécharger",
-      ) ], width={"size": 2, "offset": 8}),
+      ) ], xs=7, sm=5, md=4, lg=3, xl=2 ), 
 
       dbc.Col([
 
@@ -34,7 +34,7 @@ layout = html.Div([
           "Télécharger", id="btn_csv",
           className='btn-class',
         ),
-      ], width={"size": 2})
+      ], xs=2, sm=6, md=6, lg=6, xl=6 ),
 
     ]),
 
@@ -114,7 +114,7 @@ def mep_graph(value):
   dff0[cols[2:]] = dff0[cols[2:]].astype('int')
 
   ## ============================================= Tableau ===========================================================
-  table_data = dff0.groupby([dff0['Date'].dt.strftime('%B'), 'Espece'], sort=False)[cols].sum().reset_index()
+  table_data = dff0.groupby([dff0['Date'].dt.strftime('%B'), 'Espece'], sort=False)[cols].sum(numeric_only=True).reset_index()
   ## replace eng months names with the french ones
   table_data.replace(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
@@ -187,13 +187,13 @@ def mep_graph(value):
   )
 
   #-------------------------------------- Bar chart -----------------------------------------------------------------
-  df_date = dff0.groupby([dff0['Date'].dt.strftime('%B')], sort=False)[cols].sum().reset_index()
+  df_date = dff0.groupby([dff0['Date'].dt.strftime('%B')], sort=False)[cols].sum(numeric_only=True).reset_index()
   df_date = df_date.melt(id_vars=['Date'], value_vars=cols[2:], var_name='Asmac', value_name='Quantite')
   df_date.replace(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                   ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
                   inplace=True)
 
-  df_espece = dff0.groupby(['Espece'], sort=False)[cols].sum().reset_index()
+  df_espece = dff0.groupby(['Espece'], sort=False)[cols].sum(numeric_only=True).reset_index()
   df_espece = df_espece.melt(id_vars=['Espece'], value_vars=cols[2:], var_name='Asmac', value_name='Quantite')
   
   if value == 'Date':
@@ -218,7 +218,7 @@ def mep_graph(value):
 
   ## ============================== line chart ====================================================================
   df_vs = table_data.melt(id_vars=cols[:2], value_vars=cols[2:], var_name='Asmac', value_name='Quantite')
-  df_vs = df_vs.groupby(['Date', 'Espece'], sort=False).sum().reset_index()
+  df_vs = df_vs.groupby(['Date', 'Espece'], sort=False).sum(numeric_only=True).reset_index()
 
 
   line_fig = px.line(df_vs, x="Date", y="Quantite", color=f"Espece", title="MEP 2eme Trimestre", height=700, markers=True)

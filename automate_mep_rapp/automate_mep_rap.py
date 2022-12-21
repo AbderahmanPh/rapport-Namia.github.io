@@ -26,7 +26,8 @@ mep.fillna(0, inplace=True)
 cols = mep.columns
 mep[cols[1:]] = mep[cols[1:]].astype('int')
 ## set a range date
-mep['DATE'] = pd.date_range(start="2022-07-02",end="2022-08-24").append(pd.date_range(start='2022-08-26', end='2022-09-30'))
+mep['DATE'] = pd.date_range(start="2022-12-08",end="2022-12-18")
+# .append(pd.date_range(start='2022-08-26', end='2022-09-30'))
 ## REMOVE 00:00:00
 mep['DATE'] = mep['DATE'].dt.date
 
@@ -48,7 +49,7 @@ for sh in sheets:
     
     if wb[f'{sh}'].max_column > 8:
         ## STACK all columns to one col and groupby each one
-        df_res = df.stack().reset_index().groupby(['level_1']).sum().T
+        df_res = df.stack().reset_index().groupby(['level_1']).sum(numeric_only=True).T
         
         ##  order cols
         ordered_cols = df_res.columns[3:].append(df_res.columns[:3])
@@ -76,7 +77,7 @@ last_frames = [result, df_TRS]
 rapprochement_df = pd.concat(last_frames, ignore_index=True)
 
 # Drop last column of a dataframe (PR2)
-rapprochement_df = rapprochement_df.iloc[: , :-1]
+# rapprochement_df = rapprochement_df.iloc[: , :-1]
 
 ## convert date to format: y-m-d
 rapprochement_df['DATE'] = pd.to_datetime(rapprochement_df['DATE'], dayfirst=True)

@@ -27,7 +27,7 @@ for file in [month for month in sorted([file for file in os.listdir('./bah_files
         ## read the sheet
         df = pd.read_excel(f'./bah_files/{file}',
                                    sheet_name=i,
-                                   nrows=100)
+                                   nrows=300)
         ## check if sheet is empty
         if df.empty:
             n += 1
@@ -78,10 +78,10 @@ for file in [month for month in sorted([file for file in os.listdir('./bah_files
             if 'engine' in to_excel_kwargs:
                 to_excel_kwargs.pop('engine')
 
-            writer = pd.ExcelWriter(filename, engine='openpyxl', mode='a')
-
             # try to open an existing workbook
-            writer.book = load_workbook(filename)
+            # writer.book = load_workbook(filename)
+
+            writer = pd.ExcelWriter(filename, engine='openpyxl', mode='a')
 
             # get the last row in the existing Excel sheet
             # if it was not specified explicitly
@@ -98,7 +98,7 @@ for file in [month for month in sorted([file for file in os.listdir('./bah_files
                 writer.book.create_sheet(sheet_name, idx)
 
             # copy existing sheets
-            writer.sheets = {ws.title:ws for ws in writer.book.worksheets}
+            # writer.sheets = {ws.title:ws for ws in writer.book.worksheets}
 
             if startrow is None:
                 startrow = 0
@@ -126,7 +126,7 @@ for f in [month for month in sorted([file for file in os.listdir('./parsed_files
     frames.append(dff)
 
 result_df = pd.concat(frames)
-result_df.drop(columns=['Unnamed: 23'], inplace=True)
+# result_df.drop(columns=['Unnamed: 23'], inplace=True)
 
 # ## melt all 'products' in one column
 produit_df = result_df.melt(id_vars=['CODE', 'DATE'], 
@@ -141,10 +141,9 @@ code_by_day = produit_df.groupby(['DATE', 'CODE'])[['QUANTITE']].sum().astype('i
 code_by_day['DATE'] = code_by_day['DATE'].dt.date
 
 # convert 'Code' col to str for <visualization purposes>
-code_by_day['CODE'] = code_by_day['CODE'].astype('str')
+code_by_day['CODE'] = code_by_day['CODE'].astype('int').astype('str')
 
 ## save to excel file
 code_by_day.to_excel('../assets/namia/code_by_day.xlsx', index=False)
 produit_by_day.to_excel('../assets/namia/produit_by_day.xlsx', index=False)
-
 
